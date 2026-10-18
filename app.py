@@ -77,7 +77,7 @@ def smart_columns(all_columns) -> list:
     return [c for c in all_columns if c.startswith("smart_") and c.endswith("_raw")]
 
 
-@st.cache_data(show_spinner="Reading clean.parquet ...")
+@st.cache_resource(show_spinner="Reading clean.parquet ...")   # cache_resource: no per-run copy of a big frame
 def load_dataset(path: str, extra_cols: tuple = ()) -> pd.DataFrame:
     """Load clean.parquet with only: date, serial_number, failure, SMART raw columns (+ extras)."""
     names = pq.ParquetFile(path).schema.names
@@ -187,7 +187,13 @@ st.write(
     "SMART raw values, using a Random Forest trained on historical drive telemetry."
 )
 
-model = load_model()
+try:
+    model = load_model()
+except Exception as exc:
+    st.error(f"Could not load `{MODEL_PATH.name}`: {exc}\n\n"
+             "This usually means scikit-learn on the server differs from the version used to train. "
+             "Pin the training version in requirements.txt.")
+    st.stop()
 
 # --- No model yet: offer to train it from clean.parquet and stop -------------
 if model is None:
@@ -351,6 +357,8 @@ with tab_data:
     if not DATA_PATH.exists():
         st.info(f"`{DATA_PATH.name}` is not available in this deployment, so the dataset overview is hidden. "
                 "Predictions still work from the saved model.")
+    elif not st.toggle("Load dataset overview", value=False):
+        st.caption("Loading the full dataset is memory-heavy, so it only runs when you switch this on.")
     else:
         df = load_dataset(str(DATA_PATH), extra_cols=("model",))
 
