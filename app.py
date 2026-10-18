@@ -214,6 +214,8 @@ if model is None:
         st.rerun()
     st.stop()
 
+
+
 if not hasattr(model, "feature_names_in_"):
     st.error("The saved model has no stored feature names. Retrain it from the Model tab.")
     st.stop()
