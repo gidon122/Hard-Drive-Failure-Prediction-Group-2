@@ -2,9 +2,9 @@ streamlit>=1.40
 pandas
 numpy
 joblib
+matplotlib
+pyarrow
 # IMPORTANT: pin scikit-learn to the exact version used to train the model
-# (train.py prints it; or run `pip show scikit-learn`). Example:
+# (the app shows it after training; or run `pip show scikit-learn`). Example:
 # scikit-learn==1.5.2
 scikit-learn
-# only needed by train.py (reading clean.parquet), not by the app
-pyarrow
