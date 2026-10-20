@@ -17,16 +17,10 @@ from sklearn.metrics import (
 from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 
-import streamlit as st
-
 st.set_page_config(page_title="Hard Drive Failure Prediction", layout="wide")
 
-st.header("Hard Drive Failure Prediction")
 
-st.write(
-    "A Streamlit web app that explores hard drive health data and predicts "
-    "drive failures using a Random Forest classifier."
-)
+
 BASE_DIR = Path(__file__).parent
 DATA_PATH = BASE_DIR / "clean.parquet"
 MODEL_PATH = BASE_DIR / "drive_failure_prediction_model.pkl"
