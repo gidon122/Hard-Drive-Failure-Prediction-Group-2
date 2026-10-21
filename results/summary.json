@@ -1,0 +1,21 @@
+{
+  "earliest": "2024-01-01",
+  "latest": "2024-03-31",
+  "unique_drives": 19511,
+  "unique_models": 1,
+  "n_failed_drives": 144,
+  "smart_features": [
+    "smart_5_raw",
+    "smart_9_raw",
+    "smart_187_raw",
+    "smart_188_raw",
+    "smart_194_raw",
+    "smart_197_raw",
+    "smart_198_raw"
+  ],
+  "baseline_pr_auc": 0.0155,
+  "best_params": {
+    "classifier__max_depth": 10,
+    "classifier__n_estimators": 200
+  }
+}
